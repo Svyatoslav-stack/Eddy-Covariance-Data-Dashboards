@@ -1,0 +1,13 @@
+:root{
+    --index: calc(1vw + 1vh);
+    
+    --background: #f4f4f4;
+    --button: #f4f4f4;
+    --text: #f4f4f4;
+    --buttonColorText: #f4f4f4;
+    --pulseDashboard:#772953;
+    --stationsDashboard:#033C73;
+
+    --gapCard: 1;
+    --cardWidth: 25rem;
+}

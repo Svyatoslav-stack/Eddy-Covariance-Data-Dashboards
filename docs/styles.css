@@ -1,0 +1,106 @@
+@import './variables.css';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background);
+	background-image: url('./assets/background.jpg'); /* путь к вашему фоновому изображению */
+    background-size: cover; /* изображение будет подгоняться по размеру окна */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.dashboard-container {
+    display: flex;
+    gap: calc(var(--index) * var(--gapCard));
+}
+
+.dashboard-card {
+    background-color: var(--pulseDashboard);
+    border-radius: 1rem;
+    padding: 2rem;
+    width: var(--cardWidth);
+    text-align: left;
+    color: var(--text);
+}
+
+.dashboard-card:nth-child(2) {
+    background-color: var(--stationsDashboard);
+}
+
+.dashboard-image {
+    width: 100%;
+    height: 50%;
+    border-radius: 1rem;
+}
+
+h2 {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+}
+
+p {
+    margin: 1.5rem 0;
+    margin-top: 0.8rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+p:last-of-type {
+    margin-bottom: 3rem; /* Увеличиваем отступ снизу у последнего параграфа */
+}
+
+.learn-more {
+    text-decoration: none;
+    background-color: transparent;
+    border: 2px solid var(--buttonColorText);
+    color: var(--text);
+    padding: 1rem 1.5rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+	display: inline-block;
+    margin-bottom: 3rem; /* увеличиваем отступ под кнопками */
+}
+
+.learn-more:hover {
+    background-color: var(--background);
+    color: var(--pulseDashboard);
+}
+
+.dashboard-card:nth-child(2) .learn-more:hover {
+    color: var(--stationsDashboard);
+}
+
+.email-icon {
+	position: absolute;
+	bottom: 2%;
+	left: 45%;
+    width: 48px; /* Ширина иконки, измените по желанию */
+    height: 48px; /* Высота иконки, измените по желанию */
+}
+
+
+.github-icon {
+	position: absolute;
+	bottom: 2%;
+	left: 50%;
+    width: 48px; /* Ширина иконки, измените по желанию */
+    height: 48px; /* Высота иконки, измените по желанию */
+}
+
+
+.facebook-icon {
+	position: absolute;
+	bottom: 2%;
+	left: 55%;
+    width: 48px; /* Ширина иконки, измените по желанию */
+    height: 48px; /* Высота иконки, измените по желанию */
+}
