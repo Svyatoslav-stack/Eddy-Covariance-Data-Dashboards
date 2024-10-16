@@ -34,7 +34,7 @@ Although the system is fully automated, manual intervention is possible if neede
 
 # Pulse dashboard
 
-The Stations Dashboard updates every 30 minutes and holds data for an entire day. The daily dataset consists of approximately 864,000 observations, increasing by about 18,000 observations every 30 minutes. The dashboard is designed for technical purposes, primarily to quickly identify issues such as power outages, interference from insects or animals, and sensors/loggers issues.
+The Pulse Dashboard updates every 30 minutes and holds data for an entire day. The daily dataset consists of approximately 864,000 observations, increasing by about 18,000 observations every 30 minutes. The dashboard is designed for technical purposes, primarily to quickly identify issues such as power outages, interference from insects or animals, and sensors/loggers issues.
 
 ## Workflow Overview
 Every 30 minutes, Python scripts triggered by the Windows Scheduler download both high-frequency and low-frequency data from the previous half-hour. Due to server delays at various stations, data updates typically occur between the 2nd and 7th minute of each half-hour (e.g., at 01:07, 01:37, 02:07, etc.). The dashboard is then updated at the 8th or 9th minute of each half-hour (e.g., at 01:08, 01:38, 02:08, etc.). Handling the data for six stations takes about 1-2 minutes, processing approximately 6 * 18,000 observations in that time. Once the half-hourly data is downloaded, the following steps are automatically performed by R scripts:
