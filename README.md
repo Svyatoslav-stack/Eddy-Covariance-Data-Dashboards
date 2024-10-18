@@ -8,11 +8,11 @@ Please note that this repository does not include the Python scripts for half-ho
 **The result of this project is the [Stations and Pulse dashboards](https://svyatoslav-stack.github.io/EcoEddyFluxDashboards/).**
 
 # Stations Dashboard
-The Stations Dashboard updates daily in the early morning and holds data for an entire week. The weekly dataset consists of approximately 6,048,000 observations and is designed for scientific purposes, particularly to understand ecosystem dynamics and estimate fluxes.
+The Stations Dashboard updates daily in the early morning and holds data for an entire week. The weekly dataset contains approximately 272,160,000 observations (6,048,000 rows and 34 to 56 columns depending on the station), and it is designed for scientists to understand ecosystem fluxes dynamics.
 
 ## Workflow Overview
 
-Every night, Python scripts triggered by the Windows Scheduler download high-frequency data from the previous day. Due to server delays at various stations, the data update occurs between 02:00 and 05:00 at varying times. Once the daily data is downloaded, the following steps are automatically performed by R scripts:
+Every night, Python scripts triggered by the Windows Scheduler download high-frequency (HF) and low-frequency (LF) data from the previous day. Due to server delays at various stations, the data update occurs between 02:00 and 05:00 at varying times. Once the daily data is downloaded, the following steps are automatically performed by R scripts:
 
 - Correct the time format.
 - Transform and apply filters to the raw dataset.
@@ -20,9 +20,12 @@ Every night, Python scripts triggered by the Windows Scheduler download high-fre
 - Update the massive weekly dataset to ensure continuous tracking of trends.
 - Use the RFlux package (implemented in R) to calculate daily fluxes based on metadata and station-specific projects.
 - Append new daily data to the existing EddyPro dataset for ongoing analysis.
-- Generate EddyPro data interactive visualizations using Plotly and raw data static visualizations using ggplot2. These are presented in an HTML format, making the weekly data easily accessible to scientists.
+- Generate EddyPro data interactive visualizations using Plotly.
+- Generate LF data interactive visualizations using Plotly.
 - Display the amount of available raw data for the last 7 days.
-- Generate backup files, including HTML reports, EddyPro files, and relevant plots to ensure data continuity and easy access.
+- Generate HF data static visualizations (6,048,000 points per plot) using ggplot2 and scattermore packages.
+- Create an HTML-based dashboard using the flexdashboard package, making the weekly data easily accessible to scientists.
+- Generate backup files, including HTML reports, EddyPro files, HF and LF data, and relevant plots to ensure data continuity and easy access.
 - Delete all unnecessary files generated during processing to optimize disk space usage and maintain a clean and organized storage environment.
 
 Additional steps:
@@ -34,17 +37,17 @@ Although the system is fully automated, manual intervention is possible if neede
 
 # Pulse dashboard
 
-The Pulse Dashboard updates every 30 minutes and holds data for an entire day. The daily dataset consists of approximately 864,000 observations, increasing by about 18,000 observations every 30 minutes. The dashboard is designed for technical purposes, primarily to quickly identify issues such as power outages, interference from insects or animals, and sensors/loggers issues.
+The Pulse Dashboard updates every 30 minutes and holds data for an entire day. The daily dataset consists of approximately 9,504,000 observations (864,000 rows and 5 - 12 columns depending on the station), increasing by about 18,000 rows every 30 minutes. The dashboard is designed for technical purposes, primarily to quickly identify issues such as power outages, interference from insects or animals, and sensors/loggers issues.
 
 ## Workflow Overview
-Every 30 minutes, Python scripts triggered by the Windows Scheduler download both high-frequency and low-frequency data from the previous half-hour. Due to server delays at various stations, data updates typically occur between the 2nd and 7th minute of each half-hour (e.g., at 01:07, 01:37, 02:07, etc.). The dashboard is then updated at the 8th or 9th minute of each half-hour (e.g., at 01:08, 01:38, 02:08, etc.). Handling the data for six stations takes about 1-2 minutes, processing approximately 6 * 18,000 observations in that time. Once the half-hourly data is downloaded, the following steps are automatically performed by R scripts:
+Every 30 minutes, Python scripts triggered by the Windows Scheduler download both HF and LF data from the previous half-hour. Due to server delays at various stations, data updates typically occur between the 2nd and 7th minute of each half-hour (e.g., at 01:07, 01:37, 02:07, etc.). The dashboard is then updated at the 8th or 9th minute of each half-hour (e.g., at 01:08, 01:38, 02:08, etc.). Handling the data for six stations takes about 1-2 minutes, processing approximately 6 * 18,000 observations in that time. Once the half-hourly data is downloaded, the following steps are automatically performed by R scripts:
 
 - Correct the time format and check the latest station time.
 - Transform and apply filters to the raw dataset.
 - Update the daily dataset to ensure continuous data flow.
 - Calculate the number of observations (separately for the gas analyzer and the anemometer) and send an email alert if the count is below a certain threshold.
 - Check the operational status of the gas analyzer and anemometer by calculating the delay between the last observation time and the station's last update.
-- Generate interactive visualizations of low-frequency data (such as air temperature and precipitation) using Plotly.
+- Generate interactive visualizations of LF data (such as air temperature and precipitation) using Plotly.
 - Display the number of available raw data observations for the last 30 minutes.
 - Generate static visualizations of high-frequency data using ggplot2.
 - Compile all results in an HTML format using RMarkdown and the Flexdashboard library.
