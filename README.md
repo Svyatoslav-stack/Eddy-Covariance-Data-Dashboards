@@ -4,7 +4,7 @@ This project demonstrates how everyday tasks can be automated and effectively vi
 
 > **Note**: This project is specifically designed for internal use within Tartu University's local network and is protected by a VPN.  
 
-This repository contains **visualizations of real environmental data** for a specific time period¹², including both low- and high-frequency raw data, as well as calculated EddyPro data, collected from five forest and one peatland eddy covariance towers in Estonia. The data visualized in this repository is the property of the University of Tartu. **Using it without permission is not allowed!**
+This repository contains **visualizations of real environmental data** for a specific time period ¹ ², including both low- and high-frequency raw data, as well as calculated EddyPro data, collected from five forest and one peatland eddy covariance towers in Estonia. The data visualized in this repository is the property of the University of Tartu. **Using it without permission is not allowed!**
 
 > **Note**: This repository does not include the Python scripts or codes for half-hourly and daily data downloads from the SQL server, nor the R scripts for data calculations and visualization.
 
