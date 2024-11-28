@@ -10,7 +10,7 @@ This repository contains **visualizations of real environmental data** for a spe
 
 If you'd like to receive scripts/codes directly or request access to the private repository, feel free to contact me via email at svyatoslav.rogozin@gmail.com or svatoslav.rogozin@ut.ee.
 
-**The result of this project is the [Stations and Pulse dashboards](https://svyatoslav-stack.github.io/EcoEddyFluxDashboards/).**
+**The result of this project is the [Stations and Pulse dashboards](https://svyatoslav-stack.github.io/Eddy-Covariance-Data-Dashboards/).**
 
 # Stations Dashboard
 The Stations Dashboard updates daily in the early morning and holds data for an entire week. The weekly dataset contains approximately 272,160,000 observations (6,048,000 rows and 34 to 56 columns depending on the station), and it is designed for scientists to understand ecosystem fluxes dynamics.
