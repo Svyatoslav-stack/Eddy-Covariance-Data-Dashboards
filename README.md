@@ -82,5 +82,5 @@ Data.table, dplyr, fs, Flexdashboard, ggplot2, grid, kableExtra, knitr, lubridat
 ---
 
 ¹ **Stations Dashboard**: Data from 21.11.2024 till 28.11.2024.  
-² **Pulse Dashboard**: Data from 28.11.2024.
+² **Pulse Dashboard**: Data for 27.11.2024.
 
