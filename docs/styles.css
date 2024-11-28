@@ -9,8 +9,8 @@
 body {
     font-family: Arial, sans-serif;
     background-color: var(--background);
-	background-image: url('./assets/background.jpg'); /* путь к вашему фоновому изображению */
-    background-size: cover; /* изображение будет подгоняться по размеру окна */
+	background-image: url('./assets/background.jpg'); 
+    background-size: cover; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -54,7 +54,7 @@ p {
 }
 
 p:last-of-type {
-    margin-bottom: 3rem; /* Увеличиваем отступ снизу у последнего параграфа */
+    margin-bottom: 3rem;
 }
 
 .learn-more {
@@ -67,7 +67,7 @@ p:last-of-type {
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
 	display: inline-block;
-    margin-bottom: 3rem; /* увеличиваем отступ под кнопками */
+    margin-bottom: 3rem;
 }
 
 .learn-more:hover {
@@ -83,8 +83,8 @@ p:last-of-type {
 	position: absolute;
 	bottom: 2%;
 	left: 45%;
-    width: 48px; /* Ширина иконки, измените по желанию */
-    height: 48px; /* Высота иконки, измените по желанию */
+    width: 48px; 
+    height: 48px; 
 }
 
 
@@ -92,8 +92,8 @@ p:last-of-type {
 	position: absolute;
 	bottom: 2%;
 	left: 50%;
-    width: 48px; /* Ширина иконки, измените по желанию */
-    height: 48px; /* Высота иконки, измените по желанию */
+    width: 48px; 
+    height: 48px; 
 }
 
 
@@ -101,6 +101,6 @@ p:last-of-type {
 	position: absolute;
 	bottom: 2%;
 	left: 55%;
-    width: 48px; /* Ширина иконки, измените по желанию */
-    height: 48px; /* Высота иконки, измените по желанию */
+    width: 48px; 
+    height: 48px; 
 }
