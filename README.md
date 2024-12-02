@@ -32,12 +32,12 @@ Every night, Python scripts triggered by the Windows Scheduler download high-fre
 - Create an interactive table displaying the amount of missing data at each step.
 - Generate HF data static visualizations (6,048,000 points per plot) using ggplot2 and scattermore packages.
 - Create an HTML-based dashboard using the flexdashboard package, making the weekly data easily accessible to scientists.
-- Generate backup files, including HTML report, EddyPro files, HF and LF data, and relevant plots to ensure data continuity and easy access.
+- Generate backup files, including HTML report, **[EddyPro files](https://github.com/Svyatoslav-stack/Eddy-Covariance-Data-Dashboards/wiki)**, HF and LF data, and relevant plots to ensure data continuity and easy access.
 - Delete all unnecessary files generated during processing to optimize disk space usage and maintain a clean and organized storage environment.
 
 Additional steps:
 
-- Generate a monthly data loss report that quantifies the amount of 30-minute file loss at each station and provides a breakdown of losses by different gas fluxes for the previous month, with the report automatically sent via email.
+- Generate **[a monthly data loss report](https://github.com/Svyatoslav-stack/Eddy-Covariance-Data-Dashboards/wiki)** that quantifies the amount of 30-minute file loss at each station and provides a breakdown of losses by different gas fluxes for the previous month, with the report automatically sent via email.
 - Automatically delete datasets older than 10 days to manage storage efficiently.
 - Apply time corrections for the switch between winter and summer time twice each year.
 
