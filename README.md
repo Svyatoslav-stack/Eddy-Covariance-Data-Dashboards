@@ -6,11 +6,11 @@ This project demonstrates how everyday tasks can be automated and effectively vi
 
 This repository contains **visualizations of real environmental data** for a specific time period ¹ ², including both low- and high-frequency raw data, as well as calculated EddyPro data, collected from five forest and one peatland eddy covariance towers in Estonia. The data visualized in this repository is the property of the University of Tartu. **Using it without permission is not allowed!**
 
-> **Note**: This repository does not include the Python scripts or codes for half-hourly and daily data downloads from the SQL server, nor the R scripts for data calculations and visualization.
+> **Note**: This repository does not include the Python scripts or code for downloading half-hourly and daily data from the SQL server, nor the R scripts for data calculations and visualizations due to the sensitive information contained within them.
 
 If you'd like to receive scripts/codes directly or request access to the private repository, feel free to contact me via email at svyatoslav.rogozin@gmail.com or svatoslav.rogozin@ut.ee.
 
-**The result of this project is the [Stations and Pulse dashboards](https://svyatoslav-stack.github.io/EcoEddyFluxDashboards/).**
+**The result of this project is the [Stations and Pulse dashboards](https://svyatoslav-stack.github.io/Eddy-Covariance-Data-Dashboards/).**
 
 # Stations Dashboard
 The Stations Dashboard updates daily in the early morning and holds data for an entire week. The weekly dataset contains approximately 272,160,000 observations (6,048,000 rows and 34 to 56 columns depending on the station), and it is designed for scientists to understand ecosystem fluxes dynamics.
@@ -82,5 +82,5 @@ Data.table, dplyr, fs, Flexdashboard, ggplot2, grid, kableExtra, knitr, lubridat
 ---
 
 ¹ **Stations Dashboard**: Data from 21.11.2024 till 28.11.2024.  
-² **Pulse Dashboard**: Data from 28.11.2024.
+² **Pulse Dashboard**: Data for 27.11.2024.
 
