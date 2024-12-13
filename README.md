@@ -12,6 +12,12 @@ If you'd like to receive scripts/codes directly or request access to the private
 
 **The result of this project is the [Stations and Pulse dashboards](https://svyatoslav-stack.github.io/Eddy-Covariance-Data-Dashboards/).**
 
+# Welcome Page
+
+The Welcome Page is an interactive map that displays the status of data flows. It also features a sidebar listing all available dashboards with brief descriptions. This application is built using Flask API and is available as a standalone project on GitHub: [Interactive Stations Status Map](https://github.com/Svyatoslav-stack/Interactive-Stations-Status-Map). 
+
+The linked page provides detailed information about the application and its workflow. The map updates every minute, providing a quick visualization to determine whether stations are functioning correctly. The target group for this tool is technicians, who can quickly identify and resolve issues.
+
 # Stations Dashboard
 The Stations Dashboard updates daily in the early morning and holds data for an entire week. The weekly dataset contains approximately 272,160,000 observations (6,048,000 rows and 34 to 56 columns depending on the station), and it is designed for scientists to understand ecosystem fluxes dynamics.
 
