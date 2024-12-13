@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stations Status Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        #map {
+            height: 100vh;
+        }
+
+        .station-icon {
+            background-color: white;
+            border: 1px solid black;
+            border-radius: 100%;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 14px;
+			font-family: 'Roboto';
+        }
+
+        .station-icon.green {
+            background-color: green;
+            color: white;
+        }
+
+        .station-icon.red {
+            background-color: red;
+            color: white;
+        }
+
+        .cluster-icon {
+            background-color: white;
+            border: 1px solid black;
+            border-radius: 100%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 30px;
+			font-family: 'Roboto';
+        }
+
+        .status-green {
+            color: green;
+            font-weight: bold;
+        }
+
+        .status-red {
+            color: red;
+            font-weight: bold;
+        }
+
+        .popup-details {
+            margin-top: 10px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+            font-size: 13px;
+			font-family: 'Roboto';
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            font-size: 13px;
+			font-family: 'Roboto';
+        }
+
+        .violations-section {
+            margin-top: 10px;
+            font-size: 13px;
+			font-family: 'Roboto';
+        }
+
+        .violations-section .no-violations {
+            color: green;
+            font-weight: bold;
+        }
+
+        .violations-section .violations {
+            color: red;
+            font-weight: bold;
+			font-family: 'Roboto';
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script>
+        const stations = [
+            {
+                name: "Soontaga",
+                fullName: "Soontaga Station",
+                coords: [58.023556, 26.070828],
+                apiUrl: "http://172.17.9.208:8888/api/station_combined_status/Soontaga"
+            },
+            {
+                name: "Agali_CC",
+                fullName: "Agali CC Station",
+                coords: [58.28203121381145, 27.303765533583256],
+                apiUrl: "http://172.17.9.208:8888/api/station_combined_status/AgaliCC"
+            },
+            {
+                name: "Agali_II",
+                fullName: "Agali II Station",
+                coords: [58.2875, 27.283528],
+                apiUrl: "http://172.17.9.208:8888/api/station_combined_status/Agali_II"
+            },
+            {
+                name: "Kauru",
+                fullName: "Kauru Station",
+                coords: [58.764361, 26.113417],
+                apiUrl: "http://172.17.9.208:8888/api/station_combined_status/Kauru"
+            },
+            {
+                name: "Palo_ClearCut",
+                fullName: "Palo CC Station",
+                coords: [58.088694, 26.928972],
+                apiUrl: "http://172.17.9.208:8888/api/station_combined_status/PaloCC"
+            },
+            {
+                name: "Palo_Forest",
+                fullName: "Palo Forest II Station",
+                coords: [58.089639, 26.929444],
+                apiUrl: "http://172.17.9.208:8888/api/station_combined_status/Palo_Forest_II"
+            }
+        ];
+
+        const map = L.map('map', {
+            minZoom: 7,
+            maxZoom: 12,
+            maxBounds: [[57.9, 25.5], [58.9, 27.5]]
+        }).setView([58.377625, 26.729006], 8);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: ''
+        }).addTo(map);
+
+        const determineClusterColor = (markers) => {
+            let hasRed = false;
+            markers.forEach(marker => {
+                const color = marker.options.icon.options.color;
+                if (color === 'red') hasRed = true;
+            });
+            return hasRed ? 'red' : 'green';
+        };
+
+        const createClusterIcon = (cluster) => {
+            const markers = cluster.getAllChildMarkers();
+            const clusterColor = determineClusterColor(markers);
+            const childCount = markers.length;
+            return L.divIcon({
+                className: `cluster-icon ${clusterColor}`,
+                html: `
+                    <div style="
+                        background-color: ${clusterColor}; 
+                        color: white; 
+                        width: 32px; 
+                        height: 32px; 
+                        display: flex; 
+                        align-items: center; 
+                        justify-content: center; 
+                        border-radius: 100%;
+						font-family: 'Roboto';						
+                        font-size: 18px;">
+                        ${childCount}
+                    </div>`,
+                iconSize: [32, 32]
+            });
+        };
+
+        const markers = L.markerClusterGroup({
+            iconCreateFunction: createClusterIcon
+        });
+
+        const createStationIcon = (color, letter) => {
+            return L.divIcon({
+                className: `station-icon ${color}`,
+                html: letter,
+                iconSize: [20, 20],
+                color: color,
+                stationLetter: letter
+            });
+        };
+
+        const fetchStationData = async (url) => {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return await response.json();
+            } catch (err) {
+                console.error(`Error fetching data from ${url}:`, err);
+                return { overall_status: "Offline", violations: { hf_violations: [], lf_violations: [] }, error: true };
+            }
+        };
+
+        const updateMarkers = async () => {
+            markers.clearLayers();
+            for (const station of stations) {
+                const stationData = await fetchStationData(station.apiUrl);
+                if (!stationData) continue;
+
+                const overallStatus = stationData.overall_status || "Offline";
+                const statusClass = {
+                    "Online": "green",
+                    "Offline": "red"
+                }[overallStatus];
+
+                const hfViolations = stationData.violations?.hf_violations?.length > 0
+                    ? stationData.violations.hf_violations.map(v => `<span class="violations">${v}</span>`).join(', ')
+                    : '<span class="no-violations">None</span>';
+
+                const lfViolations = stationData.violations?.lf_violations?.length > 0
+                    ? stationData.violations.lf_violations.map(v => `<span class="violations">${v}</span>`).join(', ')
+                    : '<span class="no-violations">None</span>';
+
+                const popupContent = `
+                    <div style="font-size: 14px;">
+                        <b style="font-size: 16px; font-family: 'Roboto'; color: ${statusClass};">${station.fullName}</b><br>
+                        <div class="popup-details">
+                            <b>HF Data Status:</b> 
+                            <span class="${stationData.hf_status === 'Online' ? 'status-green' : 'status-red'}">${stationData.hf_status || 'N/A'}</span><br>
+                            <ul>
+                                <li><b>Anemometer Status:</b> 
+                                    <span class="${stationData.anemometer_status === 'Online' ? 'status-green' : 'status-red'}">${stationData.anemometer_status || 'N/A'}</span>
+                                </li>
+                                <li><b>Gas Analyzer Status:</b> 
+                                    <span class="${stationData.gas_analyzer_status === 'Online' ? 'status-green' : 'status-red'}">${stationData.gas_analyzer_status || 'N/A'}</span>
+                                </li>
+                            </ul>
+                            <b>LF Data Status:</b> 
+                            <span class="${stationData.lf_status === 'Online' ? 'status-green' : 'status-red'}">${stationData.lf_status || 'N/A'}</span><br>
+                            <b>Last Update:</b> ${stationData.last_update_tallinn || 'N/A'}
+                        </div>
+                        <hr style="margin: 10px 0; border: 1px solid #ccc;">
+                        <div class="violations-section">
+                            <b>HF Violations:</b> ${hfViolations}<br>
+                            <b>LF Violations:</b> ${lfViolations}
+                        </div>
+                    </div>
+                `;
+
+                const marker = L.marker(station.coords, {
+                    icon: createStationIcon(statusClass, station.name[0])
+                }).bindPopup(popupContent);
+
+                markers.addLayer(marker);
+            }
+
+            map.addLayer(markers);
+            setTimeout(updateMarkers, 60000);
+        };
+
+        updateMarkers();
+    </script>
+</body>
+</html>

@@ -2,42 +2,200 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.5">
-    <title>Dashboards choice</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboards with Map</title>
+    <!-- Google Fonts - Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pulseDashboard: rgba(119, 41, 83, 0.8); /* Semi-transparent Pulse Dashboard color */
+            --stationsDashboard: rgba(3, 60, 115, 0.8); /* Semi-transparent Stations Dashboard color */
+            --estfluxDashboard: rgba(255, 117, 24, 0.8); /* Semi-transparent EstFlux Dashboard color */
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Roboto', Arial, sans-serif; /* Apply Roboto font globally */
+            display: flex;
+            height: 100vh;
+            background: rgba(178, 210, 221, 1); /* Background for the entire page */
+        }
+
+        /* Left navigation bar */
+        .sidebar {
+            width: 300px; /* Fixed width */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Space between top sections and contact */
+            align-items: flex-start;
+            background: rgba(65, 82, 31, 0.7); /* Semi-transparent sidebar background */
+            color: #fff; /* White text */
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+        }
+
+        .sidebar h1 {
+            margin: 0 0 20px;
+            font-size: 24px;
+            text-transform: uppercase;
+            color: #fff;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+            padding-bottom: 10px;
+            width: 100%;
+        }
+
+        .section {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            display: block;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 1);
+            margin-bottom: 5px;
+        }
+
+        /* Specific colors for each button */
+        .pulse .section-title {
+            background-color: var(--pulseDashboard);
+        }
+
+        .stations .section-title {
+            background-color: var(--stationsDashboard);
+        }
+
+        .estflux .section-title {
+            background-color: var(--estfluxDashboard);
+        }
+
+        .section-title:hover {
+            filter: brightness(1.2);
+        }
+
+        .section p {
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 0;
+            padding: 10px 0 0;
+            color: #fff;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            margin-top: 20px;
+            width: 100%;
+            color: #fff;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .contact-section a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            margin: 5px 0;
+        }
+
+        .contact-section a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main content area */
+        .map-container {
+            flex-grow: 1;
+            padding: 0.5rem; /* Padding around the map container */
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block; /* Ensures no inline spacing issue */
+        }
+
+        .info-table {
+            position: absolute;
+            top: 10px;
+            left: 350px;
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            border: 1px solid rgba(0, 0, 0, 0.2); /* Subtle border */
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 12px;
+            color: #000; /* Black text */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Shadow for better visibility */
+            z-index: 1000;
+        }
+
+        .info-table h3 {
+            margin: 0 0 5px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .info-table p {
+            margin: 0;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
-    <div class="dashboard-container">
-        <!-- Pulse dashboard card -->
-        <div class="dashboard-card">
-            <img src="./assets/pulse-dashboard.jpg" alt="Pulse dashboard image" class="dashboard-image">
-            <h2>Pulse dashboard</h2>
-            <p>Pulse dashboard displays daily raw LF and HF data from six stations.<br>Dashboard updates every 30 minutes and resets at 01:00 (GMT+2).</p>
-            <a href="pulse_index.html" class="learn-more" target="_blank" rel="noopener noreferrer">Pulse dashboard</a>
+    <!-- Left Navigation Bar -->
+    <div class="sidebar">
+        <h1>Dashboards</h1>
+
+        <!-- Pulse Dashboard -->
+        <div class="section pulse">
+            <a href="pulse_index.html" class="section-title" target="_blank" rel="noopener noreferrer">Pulse Dashboard</a>
+            <p>Pulse dashboard displays daily raw HF and LF data from Agali II, Agali CC, Kauru, Soontaga, Palo Forest II, and Palo CC.<br>
+            Dashboard updates every 30 minutes and resets at 01:00 (GMT+2).</p>
         </div>
 
-        <!-- Stations dashboard card -->
-        <div class="dashboard-card">
-            <img src="./assets/stations-dashboard.jpg" alt="Stations dashboard image" class="dashboard-image">
-            <h2>Stations dashboard</h2>
-            <p>Stations dashboard displays weekly raw HF and EddyPro (RFlux package) calculated data from six stations.<br>Dashboard updates every day at 05:40 (GMT+2).</p>
-            <a href="stations_index.html" class="learn-more" target="_blank" rel="noopener noreferrer">Stations dashboard</a>
+        <!-- Stations Dashboard -->
+        <div class="section stations">
+            <a href="stations_index.html" class="section-title" target="_blank" rel="noopener noreferrer">Stations Dashboard</a>
+            <p>Stations dashboard displays weekly HF, LF, and EddyPro calculated data from Agali II, Agali CC, Kauru, Soontaga, Palo Forest II, and Palo CC.<br>
+            Dashboard updates every day at 05:40 (GMT+2).</p>
+        </div>
+
+        <!-- EstFlux Dashboard -->
+        <div class="section estflux">
+            <a href="technical_index.html" class="section-title" target="_blank" rel="noopener noreferrer">EstFlux Dashboard</a>
+            <p>EstFlux dashboard displays LF data from Agali II, Agali CC, Palojärv, Kauru, Kuresoo, and Valgeraba.<br> 
+			Dashboard updates every 30 minutes.</p>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <h2>Contact</h2>
+            <a href="https://github.com/Svyatoslav-stack/" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="mailto:svyatoslav.rogozin@gmail.com">E-mail</a>
+            <a href="https://www.facebook.com/svyatoslav.rogozin" target="_blank" rel="noopener noreferrer">Facebook</a>
         </div>
     </div>
 
-    <!-- Блок с контактной информацией -->
-    <div class="contact-info">
-        <p>
-            <a href="mailto:svyatoslav.rogozin@gmail.com">
-                <img src="./assets/email-mark.png" alt="Email icon" class="email-icon">
-            </a>
-            <a href="https://github.com/Svyatoslav-stack/" target="_blank" rel="noopener noreferrer">
-                <img src="./assets/github-mark.png" alt="GitHub icon" class="github-icon">
-            </a>
-			<a href="https://www.facebook.com/svyatoslav.rogozin" target="_blank" rel="noopener noreferrer">
-                <img src="./assets/facebook-mark.png" alt="Facebook icon" class="facebook-icon">
-			</a>
-        </p>
+    <!-- Fullscreen map -->
+    <div class="map-container">
+        <div class="info-table">
+            <h3>Important Information</h3>
+            <p>Interactive map is a separate dynamic application that updates every minute. Due to limitations of GitHub Pages, real-time station statuses are not displayed correctly.<br>
+			Pulse and Stations Dashboards are working correctly.</p>
+        </div>
+        <iframe 
+            src="map_index.html" 
+            title="Interactive Map">
+        </iframe>
     </div>
 </body>
 </html>
